@@ -4,7 +4,7 @@ import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 import javax.persistence.*;
-import java.util.Objects;
+import java.util.*;
 
 @Entity
 public final class Restaurant {
@@ -29,7 +29,7 @@ public final class Restaurant {
         name = null;
     }
 
-    public Long getId() {
+    public long getId() {
         return id;
     }
 
@@ -50,12 +50,19 @@ public final class Restaurant {
         if (this == o) return true;
         if (!(o instanceof Restaurant)) return false;
         Restaurant that = (Restaurant) o;
-        return id == that.id &&
+        return Objects.equals(id, that.id) &&
                 Objects.equals(name, that.name);
     }
 
     @Override
     public int hashCode() {
         return Objects.hash(id, name);
+    }
+
+    public List getReviews() {
+        return Collections.singletonList(new HashMap<String, Object>() {{
+            put("id",3);
+            put("text", "the review text");
+        }});
     }
 }

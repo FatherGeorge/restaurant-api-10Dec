@@ -25,6 +25,11 @@ import javax.xml.ws.http.HTTPException;
         return repository.findAll();
     }
 
+    @GetMapping("/restaurants/{id}")
+    public Iterable<Restaurant> getRestaurantsWithReviews (@PathVariable String id){
+        return repository.findAll();
+    }
+
     @PostMapping
     public Restaurant addRestaurants(@RequestBody Restaurant newRestaurant){
         if ("".equals(newRestaurant.getName())) {

@@ -48,7 +48,7 @@ public class RestaurantControllerTest {
     }
 
     @Test
-    public void getReturnsEmptyList() throws Exception{
+    public void getReturnsEmptyList() throws Exception {
         //Setup
 
         //Exercise
@@ -63,7 +63,7 @@ public class RestaurantControllerTest {
     }
 
     @Test
-    public void listReturnsOneRestaurantFromRepository()throws Exception{
+    public void listReturnsOneRestaurantFromRepository() throws Exception {
         //Setup
         final Restaurant expected = new Restaurant(0, "Fred's Ribs");
         repository.save(expected);
@@ -126,11 +126,9 @@ public class RestaurantControllerTest {
                 .getResponse()
                 .getContentAsString();
 
-
         final Restaurant actual = OBJECT_MAPPER.readValue(content,Restaurant.class);
 
         //Assert
-        //assertEquals(actual.getName(), expected.getName());
         assertEquals(actual.getName(), expected.getName());
 
     }
