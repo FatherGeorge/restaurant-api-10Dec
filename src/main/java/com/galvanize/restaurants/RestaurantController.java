@@ -1,6 +1,8 @@
 package com.galvanize.restaurants;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.client.HttpStatusCodeException;
 
@@ -32,5 +34,17 @@ import javax.xml.ws.http.HTTPException;
         return repository.save(newRestaurant);
     }
 
+    /*public ResponseEntity<String> addRestaurants(@RequestBody Restaurant newRestaurant){
+        if ("".equals(newRestaurant.getName())) {
+            return new ResponseEntity<>(
+                    "Restaurant name cannot be empty!",
+                    HttpStatus.BAD_REQUEST);
+        }
 
+        Restaurant newRest = repository.save(newRestaurant);
+        String newRestaurantName = newRest.getName();
+        return new ResponseEntity<>(
+                newRestaurantName,
+                HttpStatus.OK);
+    }*/
 }

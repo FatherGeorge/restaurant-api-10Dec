@@ -18,8 +18,7 @@ import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 import java.util.List;
 
 import static org.hamcrest.MatcherAssert.assertThat;
-import static org.hamcrest.Matchers.contains;
-import static org.hamcrest.Matchers.is;
+import static org.hamcrest.Matchers.*;
 import static org.junit.jupiter.api.Assertions.*;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
@@ -66,9 +65,8 @@ public class RestaurantControllerTest {
     @Test
     public void listReturnsOneRestaurantFromRepository()throws Exception{
         //Setup
-        final Restaurant expected = new Restaurant("Fred's Ribs");
+        final Restaurant expected = new Restaurant(0, "Fred's Ribs");
         repository.save(expected);
-
 
         //Exercise
         final String content = mockMvc.perform(get("/api/restaurants"))
@@ -80,8 +78,8 @@ public class RestaurantControllerTest {
         final List<Restaurant> actual = OBJECT_MAPPER.readValue(content,new TypeReference<List<Restaurant>>(){});
 
         //Assert
+        System.out.println(expected.getId());
         assertThat(actual, contains(expected));
-
     }
 
     @Test
@@ -111,7 +109,7 @@ public class RestaurantControllerTest {
     @Test
     public void addRestaurantReturnsRestaurantListWhenAddingNewRestaurant() throws Exception{
         //Setup
-        final Restaurant expected = new Restaurant("Pizza hut");
+        final Restaurant expected = new Restaurant(Long.MIN_VALUE, "Pizza hut");
 
         String newRestaurant = "{\"name\":\"Pizza hut\"}";
 
@@ -132,6 +130,7 @@ public class RestaurantControllerTest {
         final Restaurant actual = OBJECT_MAPPER.readValue(content,Restaurant.class);
 
         //Assert
+        //assertEquals(actual.getName(), expected.getName());
         assertEquals(actual.getName(), expected.getName());
 
     }
