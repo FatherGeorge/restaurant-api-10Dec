@@ -37,4 +37,7 @@ dependencies {
 	runtimeOnly 'org.postgresql:postgresql'
 
 	compile 'org.flywaydb:flyway-core'
+	compile group: 'org.springframework.boot', name: 'spring-boot-starter-actuator', version: '2.1.1.RELEASE'
+
+
 }
