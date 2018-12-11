@@ -14,6 +14,9 @@ public final class Restaurant {
     private final long id;
     private final String name;
 
+    @OneToMany(mappedBy="restaurant")
+    private Set<Review> reviews;
+
     @JsonCreator
     Restaurant(@JsonProperty("id") final long id, @JsonProperty("name") final String name) {
         this.id = id;
