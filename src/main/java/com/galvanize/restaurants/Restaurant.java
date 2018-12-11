@@ -15,7 +15,7 @@ public final class Restaurant {
     private final String name;
 
     @OneToMany(mappedBy="restaurant")
-    private Set<Review> reviews;
+    private Set<Review> reviews =  new HashSet<Review>();
 
     @JsonCreator
     Restaurant(@JsonProperty("id") final long id, @JsonProperty("name") final String name) {
@@ -62,10 +62,13 @@ public final class Restaurant {
         return Objects.hash(id, name);
     }
 
-    public List getReviews() {
-        return Collections.singletonList(new HashMap<String, Object>() {{
+    public Set<Review> getReviews() {
+        return reviews;
+              /*
+                Collections.singletonList(new HashMap<String, Object>() {{
             put("id",3);
             put("text", "the review text");
         }});
+        */
     }
 }

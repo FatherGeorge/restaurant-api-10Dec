@@ -12,7 +12,6 @@ import javax.xml.ws.http.HTTPException;
 @RequestMapping("/api/restaurants")
     final class RestaurantController {
 
-
     private final RestaurantRepository repository;
 
     @Autowired
@@ -22,11 +21,6 @@ import javax.xml.ws.http.HTTPException;
 
     @GetMapping
     public Iterable<Restaurant> getRestaurants(){
-        return repository.findAll();
-    }
-
-    @GetMapping("/restaurants/{id}")
-    public Iterable<Restaurant> getRestaurantsWithReviews (@PathVariable String id){
         return repository.findAll();
     }
 
@@ -52,4 +46,11 @@ import javax.xml.ws.http.HTTPException;
                 newRestaurantName,
                 HttpStatus.OK);
     }*/
+
+    //@PostMapping("/{id}/reviews")
+    public Iterable<Restaurant> getRestaurantsWithReviews (@PathVariable String id){
+        System.out.println("\n ************"  + id + "*************** \n");
+        return repository.findAll();
+    }
+
 }

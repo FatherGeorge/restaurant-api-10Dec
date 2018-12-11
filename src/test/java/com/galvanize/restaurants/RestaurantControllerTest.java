@@ -42,7 +42,7 @@ public class RestaurantControllerTest {
         repository.deleteAll();
     }
 
-    @After
+    //@After
     public void afterEach(){
         repository.deleteAll();
     }
@@ -131,5 +131,18 @@ public class RestaurantControllerTest {
         //Assert
         assertEquals(actual.getName(), expected.getName());
 
+    }
+
+    @Test
+    public void addRestaurantWithReviewsWork() throws Exception{
+        //Setup
+        final Restaurant expected = new Restaurant(Long.MIN_VALUE, "Pizza hut");
+        final Review rev1 = new Review(Long.MIN_VALUE, "baddest restaurant");
+        final Review rev2 = new Review(Long.MIN_VALUE, " merry delicious ");
+
+        expected.getReviews().add(rev1);
+        expected.getReviews().add(rev2);
+
+        repository.save(expected);
     }
 }

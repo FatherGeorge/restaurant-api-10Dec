@@ -14,9 +14,11 @@ public final class Review {
     private final long id;
     private final String text;
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name="restaurant_id", nullable=false)
     private Restaurant restaurant;
+
+
 
     @JsonCreator
     Review(@JsonProperty("id") final long id, @JsonProperty("text") final String text) {
@@ -35,6 +37,14 @@ public final class Review {
 
     public String getText() {
         return text;
+    }
+
+    public Restaurant getRestaurant() {
+        return restaurant;
+    }
+
+    public void setRestaurant(Restaurant restaurant) {
+        this.restaurant = restaurant;
     }
 
     @Override
