@@ -15,7 +15,9 @@ import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.RequestBuilder;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.*;
@@ -37,7 +39,7 @@ public class RestaurantControllerTest {
 
     private static final ObjectMapper OBJECT_MAPPER = new ObjectMapper();
 
-    @Before
+    //@Before
     public void beforeEach(){
         repository.deleteAll();
     }
@@ -136,13 +138,12 @@ public class RestaurantControllerTest {
     @Test
     public void addRestaurantWithReviewsWork() throws Exception{
         //Setup
-        final Restaurant expected = new Restaurant(Long.MIN_VALUE, "Pizza hut");
-        final Review rev1 = new Review(Long.MIN_VALUE, "baddest restaurant");
-        final Review rev2 = new Review(Long.MIN_VALUE, " merry delicious ");
+        final Restaurant restaurant1 = new Restaurant(7, "Papa Jones");
+        Set reviews = new HashSet<Review>(){{
+            add(new Review("Very nice rest",restaurant1));
+        }};
+        restaurant1.setReviews(reviews);
 
-        expected.getReviews().add(rev1);
-        expected.getReviews().add(rev2);
-
-        repository.save(expected);
+        repository.save(restaurant1);
     }
 }

@@ -14,7 +14,8 @@ public final class Restaurant {
     private final long id;
     private final String name;
 
-    @OneToMany(mappedBy="restaurant")
+    @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true)
+    @JoinColumn(name="id")
     private Set<Review> reviews =  new HashSet<Review>();
 
     @JsonCreator
@@ -22,10 +23,6 @@ public final class Restaurant {
         this.id = id;
         this.name = name;
     }
-
-//    Restaurant(String name){
-//        this(Long.MIN_VALUE, null);
-//    }
 
     private Restaurant(){
         id = 0;
@@ -38,14 +35,6 @@ public final class Restaurant {
 
     public String getName() {
         return name;
-    }
-
-    @Override
-    public String toString() {
-        return "Restaurant{" +
-                "id=" + id +
-                ", name='" + name + '\'' +
-                '}';
     }
 
     @Override
@@ -70,5 +59,9 @@ public final class Restaurant {
             put("text", "the review text");
         }});
         */
+    }
+
+    public void setReviews(Set<Review> reviews) {
+        this.reviews = reviews;
     }
 }

@@ -10,15 +10,18 @@ public final class Review {
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "review_generator")
     @SequenceGenerator(name="review_generator", sequenceName = "review_sequence", allocationSize=1)
-
-    private final long id;
-    private final String text;
+    private long id;
+    private String text;
 
     @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name="restaurant_id", nullable=false)
     private Restaurant restaurant;
 
 
+    public Review(String text, Restaurant restaurant) {
+        this.text = text;
+        this.restaurant = restaurant;
+    }
 
     @JsonCreator
     Review(@JsonProperty("id") final long id, @JsonProperty("text") final String text) {
