@@ -18,15 +18,15 @@ public final class Review {
     private Restaurant restaurant;
 
 
-    public Review(String text, Restaurant restaurant) {
+    /*public Review(String text, Restaurant restaurant) {
         this.text = text;
         this.restaurant = restaurant;
-    }
+    }*/
 
     @JsonCreator
-    Review(@JsonProperty("id") final long id, @JsonProperty("text") final String text) {
-        this.id = id;
+    Review(@JsonProperty("text") final String reviewText, @JsonProperty("restaurant") final Restaurant restaurant) {
         this.text = text;
+        this.restaurant = restaurant;
     }
 
     private Review() {
@@ -55,6 +55,7 @@ public final class Review {
         return "Review{" +
                 "id=" + id +
                 ", text='" + text + '\'' +
+                ", restaurant=" + restaurant.getName() +
                 '}';
     }
 }

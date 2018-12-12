@@ -7,9 +7,11 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.client.HttpStatusCodeException;
 
 import javax.xml.ws.http.HTTPException;
+import java.util.HashSet;
+import java.util.Set;
 
 @RestController
-@RequestMapping("/api/restaurants")
+@RequestMapping("/api")
     final class RestaurantController {
 
     private final RestaurantRepository repository;
@@ -19,21 +21,36 @@ import javax.xml.ws.http.HTTPException;
         this.repository = repository;
     }
 
-    @GetMapping
+    @GetMapping("/restaurants")
     public Iterable<Restaurant> getRestaurants(){
         return repository.findAll();
     }
 
-    @PostMapping
+    @PostMapping("/restaurants")
     public Restaurant addRestaurants(@RequestBody Restaurant newRestaurant){
         if ("".equals(newRestaurant.getName())) {
             throw new HTTPException(400);
         }
-
         return repository.save(newRestaurant);
     }
 
-    /*public ResponseEntity<String> addRestaurants(@RequestBody Restaurant newRestaurant){
+    @PostMapping("/restaurants/{id}/reviews")
+    public Iterable<Restaurant> getRestaurantsWithReviews (@RequestBody Restaurant restaurant, @RequestBody Review review){
+        System.out.println("\n ************"  + restaurant + "*************** \n");
+        System.out.println("\n ************"  + review + "*************** \n");
+
+
+        //final Restaurant restaurant = new Restaurant(7, "Papa Jones");
+        Set reviews = new HashSet<Review>(){{
+            add(review);
+        }};
+        restaurant.setReviews(reviews);
+        repository.save(restaurant);
+
+        return repository.findAll();
+    }
+
+     /*public ResponseEntity<String> addRestaurants(@RequestBody Restaurant newRestaurant){
         if ("".equals(newRestaurant.getName())) {
             return new ResponseEntity<>(
                     "Restaurant name cannot be empty!",
@@ -46,11 +63,5 @@ import javax.xml.ws.http.HTTPException;
                 newRestaurantName,
                 HttpStatus.OK);
     }*/
-
-    //@PostMapping("/{id}/reviews")
-    public Iterable<Restaurant> getRestaurantsWithReviews (@PathVariable String id){
-        System.out.println("\n ************"  + id + "*************** \n");
-        return repository.findAll();
-    }
 
 }

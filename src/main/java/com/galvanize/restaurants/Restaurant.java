@@ -18,6 +18,15 @@ public final class Restaurant {
     @JoinColumn(name="id")
     private Set<Review> reviews =  new HashSet<Review>();
 
+    @Override
+    public String toString() {
+        return "Restaurant{" +
+                "id=" + id +
+                ", name='" + name + '\'' +
+                ", reviews=" + reviews +
+                '}';
+    }
+
     @JsonCreator
     Restaurant(@JsonProperty("id") final long id, @JsonProperty("name") final String name) {
         this.id = id;
